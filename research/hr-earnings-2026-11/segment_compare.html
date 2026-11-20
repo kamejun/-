@@ -1,0 +1,186 @@
+<title>人材紹介 事業比較</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column; filter row on top, four bar panels in a 2-col grid (1-col on phones), table at the end */
+:root{
+  --bg:#f7f8f7; --surface:#ffffff; --ink:#151816; --ink-2:#4b524e; --ink-3:#7a827d;
+  --rule:#dfe3e0; --track:#eef1ef;
+  --s1:#2a78d6; --s2:#eb6834; --focus:#2a78d6;
+  --f-body:"IBM Plex Sans JP","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141615; --surface:#1b1d1c; --ink:#eef0ee; --ink-2:#c0c6c2; --ink-3:#8d958f;
+  --rule:#2e3330; --track:#252927; --s1:#3987e5; --s2:#d95926; --focus:#6da7ec; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141615; --surface:#1b1d1c; --ink:#eef0ee; --ink-2:#c0c6c2; --ink-3:#8d958f;
+  --rule:#2e3330; --track:#252927; --s1:#3987e5; --s2:#d95926; --focus:#6da7ec; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+h1{font-size:1.6rem;margin:0;font-weight:700;text-wrap:balance;letter-spacing:.01em}
+h2{font-size:1rem;margin:0;font-weight:700}
+.lede{color:var(--ink-2);margin:6px 0 0;max-width:68ch}
+.note{font-size:12px;color:var(--ink-3)}
+.bar-row{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;border:0;background:transparent;color:var(--ink-2);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible,.row:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.panel header p{margin:2px 0 0;font-size:12px;color:var(--ink-3)}
+.chart{display:flex;flex-direction:column;gap:2px}
+.row{display:grid;grid-template-columns:8.5em minmax(0,1fr) 5.2em;align-items:center;gap:8px;padding:3px 4px;border-radius:4px;cursor:default}
+.row:hover{background:var(--track)}
+.name{font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.name.hl{font-weight:700}
+.track{position:relative;height:14px}
+.fill{position:absolute;top:0;height:100%;border-radius:0 4px 4px 0;min-width:2px}
+.fill.neg{border-radius:4px 0 0 4px}
+.zero{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--ink-3)}
+.val{font-family:var(--f-num);font-size:12px;text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.val.na{color:var(--ink-3)}
+.mark{font-size:10px;color:var(--ink-3);margin-left:3px}
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:8px 10px;font-size:12px;line-height:1.5;max-width:300px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:12.5px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-weight:500;color:var(--ink-2);background:var(--track);white-space:nowrap}
+td.n{font-family:var(--f-num);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-size:11px;padding:0 6px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.caveats{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink-2);max-width:80ch}
+.caveats p{margin:0}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .25s ease,left .25s ease}}
+</style>
+
+<div class="wrap">
+  <div>
+    <h1>人材紹介 事業比較</h1>
+    <p class="lede">各社の人材紹介事業（またはそれを含むセグメント）の売上、利益、利益率、直近の伸び率を並べました。調査日は2026年11月20日、単位は億円です。</p>
+  </div>
+
+  <div class="bar-row" role="group" aria-label="表示の切り替え">
+    <div class="seg" id="f-scope">
+      <button type="button" id="f-all" aria-pressed="true" data-v="all">全社を表示</button>
+      <button type="button" id="f-pure" aria-pressed="false" data-v="pure">紹介に近い区分だけ</button>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s1)"></i>紹介に近い区分</span>
+      <span><i class="sw" style="background:var(--s2)"></i>求人広告・派遣・スカウトと混在</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel"><header><h2>売上（直近通期）</h2><p>億円。ポートは概算</p></header><div class="chart" id="c-rev"></div></section>
+    <section class="panel"><header><h2>利益（直近通期）</h2><p>億円。利益の種類は会社ごとに違う（ポイントで確認）</p></header><div class="chart" id="c-prof"></div></section>
+    <section class="panel"><header><h2>利益率（直近通期）</h2><p>利益 ÷ 売上</p></header><div class="chart" id="c-mgn"></div></section>
+    <section class="panel"><header><h2>売上の伸び（直近の累計）</h2><p>前年同期比。期間は会社ごとに違う（ポイントで確認）</p></header><div class="chart" id="c-gr"></div></section>
+  </div>
+
+  <h2>数値の一覧</h2>
+  <div class="tbl"><table id="t"></table></div>
+
+  <div class="caveats">
+    <p><b>数値の確度：</b>この環境では決算短信のPDF原本を開けませんでした。数値は検索結果に出た抜粋（二次情報）から取っています。投資判断に使う前に、原本で確認してください。</p>
+    <p><b>比べ方の注意：</b>「人材紹介だけ」の数値を出している会社は少数です。オレンジの会社は求人広告・派遣・スカウトが合算されており、純粋な紹介とは比べられません。利益も、営業利益、セグメント利益、EBITDA、経常利益が混ざっています。</p>
+    <p><b>グラフにない会社：</b>ジェイックは紹介部分の数値が見つかりませんでした。ネオキャリアとギブリーは未上場です。</p>
+  </div>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const D=[
+ {n:"リクルートHD",k:"mix",seg:"HRテクノロジーの日本分（求人広告＋紹介＋Indeed PLUS）",fy:"26/3期",rev:3482,ry:-4.6,p:null,pt:"未開示",g:9.8,gp:"27/3期 上期"},
+ {n:"パーソルHD",k:"mix",seg:"キャリアSBU（doda：紹介＋求人広告）",fy:"26/3期",rev:1528.7,ry:5.7,p:286,pt:"営業利益（出典1つ）",g:-3.2,gp:"27/3期 上期"},
+ {n:"ビジョナル",k:"mix",seg:"HR Tech（ビズリーチ801＋HRMOS他）",fy:"26/7期",rev:938,ry:21.9,p:287,pt:"セグメント利益",g:21.9,gp:"26/7期 通期（最新）"},
+ {n:"ウィルグループ",k:"mix",seg:"海外Working（豪州・シンガポールの紹介＋派遣）",fy:"26/3期",rev:585,ry:3.6,p:24.2,pt:"セグメント利益",g:21.2,gp:"27/3期 Q1"},
+ {n:"ディップ",k:"mix",seg:"人材サービス（求人広告が主体）",fy:"26/2期",rev:482.3,ry:-2.9,p:152.0,pt:"セグメント利益",g:-12.5,gp:"27/2期 上期"},
+ {n:"JAC",k:"pure",seg:"国内人材紹介",fy:"25/12期",rev:416.6,ry:19.0,p:111.2,pt:"セグメント利益",g:10.5,gp:"26/12期 上期"},
+ {n:"SMS",k:"pure",seg:"キャリア（看護・介護の紹介）",fy:"26/3期",rev:382.8,ry:5.7,p:78.2,pt:"EBITDA",g:7.0,gp:"27/3期 上期"},
+ {n:"クイック",k:"mix",seg:"人材サービス（紹介＋派遣）",fy:"26/3期",rev:234.8,ry:3.5,p:36.4,pt:"セグメント営業利益",g:-0.5,gp:"27/3期 上期"},
+ {n:"エン",k:"pure",seg:"エージェント（エン・エージェント＋en world）",fy:"26/3期",rev:108.5,ry:9.4,p:16.2,pt:"営業利益",g:10.7,gp:"27/3期 Q1"},
+ {n:"ポート",k:"pure",seg:"人材領域（概算）",fy:"26/3期",rev:100,ry:44,p:null,pt:"未確認",g:null,gp:"人材領域の上期は未確認",approx:true},
+ {n:"ギークリー",k:"pure",seg:"全社＝IT人材の紹介",fy:"26/5期",rev:97.8,ry:36.9,p:21.6,pt:"営業利益",g:null,gp:"27/5期 Q1は前年比較なし"},
+ {n:"ROXX",k:"pure",seg:"全社（紹介プラットフォーム。back checkは2025/9に譲渡）",fy:"26/9期",rev:50.2,ry:11.3,p:0.64,pt:"営業利益",g:11.3,gp:"26/9期 通期（最新）",hl:true},
+ {n:"MS-Japan",k:"pure",seg:"国内人材紹介",fy:"26/3期",rev:42.9,ry:1.3,p:null,pt:"未確認（全社の営業利益率は21.9%）",g:-5.4,gp:"27/3期 Q1"},
+ {n:"キャリアデザインC",k:"pure",seg:"人材紹介事業",fy:"26/9期",rev:29.9,ry:-4.9,p:3.86,pt:"経常利益",g:-4.9,gp:"26/9期 通期（最新）"},
+ {n:"ハウテレビジョン",k:"pure",seg:"中途サービス（Liiga等）",fy:"26/1期",rev:3.5,ry:18.3,p:null,pt:"未開示",g:null,gp:"中途の上期は未確認"}
+];
+D.forEach(d=>{d.m=(d.p!=null&&d.rev)?d.p/d.rev*100:null});
+const C={pure:"var(--s1)",mix:"var(--s2)"};
+const KL={pure:"紹介に近い",mix:"混在"};
+let scope="all";
+try{const s=localStorage.getItem("hrcmp-scope");if(s==="pure"||s==="all")scope=s}catch(e){}
+const fmt=(v,dp=1)=>v.toLocaleString("ja-JP",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const sg=v=>(v>0?"+":v<0?"−":"±")+fmt(Math.abs(v),1)+"%";
+const tip=document.getElementById("tip");
+
+function tipHtml(d){
+  return `<b>${d.n}</b>（${KL[d.k]}）<br>${d.seg}<br>`+
+  `${d.fy}：売上 ${fmt(d.rev,1)}億${d.approx?"（概算）":""}・前年比 ${sg(d.ry)}<br>`+
+  `利益：${d.p!=null?fmt(d.p,2)+"億（"+d.pt+"）":d.pt}${d.m!=null?"・利益率 "+fmt(d.m,1)+"%":""}<br>`+
+  `直近の伸び：${d.g!=null?sg(d.g)+"（"+d.gp+"）":d.gp}`;
+}
+function place(e){
+  const r=tip.getBoundingClientRect();let x=e.clientX+14,y=e.clientY+14;
+  if(x+r.width>innerWidth-8)x=e.clientX-r.width-14; if(y+r.height>innerHeight-8)y=e.clientY-r.height-14;
+  tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,y)+"px";
+}
+function bind(el,d){
+  el.tabIndex=0;el.setAttribute("aria-label",tipHtml(d).replace(/<[^>]+>/g," "));
+  el.addEventListener("pointerenter",e=>{tip.innerHTML=tipHtml(d);tip.hidden=false;place(e)});
+  el.addEventListener("pointermove",place);
+  el.addEventListener("pointerleave",()=>tip.hidden=true);
+  el.addEventListener("focus",()=>{tip.innerHTML=tipHtml(d);tip.hidden=false;const b=el.getBoundingClientRect();place({clientX:b.left+b.width/2,clientY:b.bottom})});
+  el.addEventListener("blur",()=>tip.hidden=true);
+}
+function chart(id,key,label,diverging){
+  const box=document.getElementById(id);box.innerHTML="";
+  let rows=D.filter(d=>scope==="all"||d.k==="pure");
+  const has=rows.filter(d=>d[key]!=null).sort((a,b)=>b[key]-a[key]);
+  const na=rows.filter(d=>d[key]==null);
+  const vals=has.map(d=>d[key]);
+  const max=Math.max(0,...vals), min=Math.min(0,...vals), span=(max-min)||1;
+  const z=(-min)/span*100;
+  [...has,...na].forEach(d=>{
+    const r=document.createElement("div");r.className="row";
+    const v=d[key];
+    let bar="";
+    if(v!=null){
+      const w=Math.abs(v)/span*100;
+      const left=v>=0?z:z-w;
+      bar=`<div class="fill${v<0?" neg":""}" style="left:${left}%;width:${w}%;background:${C[d.k]}"></div>`+(diverging||min<0?`<div class="zero" style="left:${z}%"></div>`:"");
+    }
+    r.innerHTML=`<div class="name${d.hl?" hl":""}" title="${d.n}">${d.n}${d.approx&&key==="rev"?'<span class="mark">概算</span>':""}</div>`+
+      `<div class="track">${bar}</div>`+
+      `<div class="val${v==null?" na":""}">${v==null?"—":label(v)}</div>`;
+    bind(r,d);box.appendChild(r);
+  });
+}
+function table(){
+  const t=document.getElementById("t");
+  const rows=D.filter(d=>scope==="all"||d.k==="pure");
+  t.innerHTML=`<thead><tr><th>会社</th><th>区分</th><th>対象</th><th>期</th><th>売上</th><th>前年比</th><th>利益</th><th>利益の種類</th><th>利益率</th><th>直近の伸び</th><th>期間</th></tr></thead><tbody>`+
+  rows.map(d=>`<tr><td${d.hl?' style="font-weight:700"':""}>${d.n}</td><td><span class="pill" style="color:${C[d.k]}">${KL[d.k]}</span></td><td>${d.seg}</td><td>${d.fy}</td>`+
+   `<td class="n">${fmt(d.rev,1)}${d.approx?"*":""}</td><td class="n">${sg(d.ry)}</td><td class="n">${d.p!=null?fmt(d.p,2):"—"}</td><td>${d.pt}</td>`+
+   `<td class="n">${d.m!=null?fmt(d.m,1)+"%":"—"}</td><td class="n">${d.g!=null?sg(d.g):"—"}</td><td>${d.gp}</td></tr>`).join("")+`</tbody>`;
+}
+function render(){
+  chart("c-rev","rev",v=>fmt(v,v<100?1:0));
+  chart("c-prof","p",v=>fmt(v,v<10?2:1));
+  chart("c-mgn","m",v=>fmt(v,1)+"%");
+  chart("c-gr","g",v=>sg(v),true);
+  table();
+  document.querySelectorAll("#f-scope button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===scope)));
+}
+document.querySelectorAll("#f-scope button").forEach(b=>b.addEventListener("click",()=>{scope=b.dataset.v;try{localStorage.setItem("hrcmp-scope",scope)}catch(e){}render()}));
+render();
+</script>
