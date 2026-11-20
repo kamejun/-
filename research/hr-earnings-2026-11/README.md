@@ -16,6 +16,7 @@
 | [04_howtv_givery_geekly.md](04_howtv_givery_geekly.md) | ハウテレビジョン、ギブリー（未上場）、ギークリー |
 | [05_sms_neocareer.md](05_sms_neocareer.md) | エス・エム・エス、ネオキャリア（未上場） |
 | [06_segment_compare.md](06_segment_compare.md) | **人材紹介事業だけで比べた売上・利益・利益率・伸び率** |
+| [07_roxx_size_peers.md](07_roxx_size_peers.md) | ROXXと同規模（売上25〜100億）の人材紹介・採用マッチング各社 |
 | [segment_compare.html](segment_compare.html) | 上の比較のグラフ（公開版: https://claude.ai/artifact/UqshiravXThYMihHksxze7 ） |
 
 ## 一覧（直近の発表分）

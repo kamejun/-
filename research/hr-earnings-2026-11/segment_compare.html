@@ -71,6 +71,7 @@ td.n{font-family:var(--f-num);text-align:right;font-variant-numeric:tabular-nums
     <div class="seg" id="f-scope">
       <button type="button" id="f-all" aria-pressed="true" data-v="all">全社を表示</button>
       <button type="button" id="f-pure" aria-pressed="false" data-v="pure">紹介に近い区分だけ</button>
+      <button type="button" id="f-mid" aria-pressed="false" data-v="mid">ROXX規模（売上25〜100億）</button>
     </div>
     <div class="legend">
       <span><i class="sw" style="background:var(--s1)"></i>紹介に近い区分</span>
@@ -91,6 +92,7 @@ td.n{font-family:var(--f-num);text-align:right;font-variant-numeric:tabular-nums
   <div class="caveats">
     <p><b>数値の確度：</b>この環境では決算短信のPDF原本を開けませんでした。数値は検索結果に出た抜粋（二次情報）から取っています。投資判断に使う前に、原本で確認してください。</p>
     <p><b>比べ方の注意：</b>「人材紹介だけ」の数値を出している会社は少数です。オレンジの会社は求人広告・派遣・スカウトが合算されており、純粋な紹介とは比べられません。利益も、営業利益、セグメント利益、EBITDA、経常利益が混ざっています。</p>
+    <p><b>ROXX規模の会社：</b>フォースタートアップス、アクシスコンサルティング、ワンキャリア、アトラエ、リブセンス、ディスラプターズ、ウォンテッドリー、ジンジブは全社の数値です。アクシスの売上と利益は今期予想から逆算した推計です。</p>
     <p><b>グラフにない会社：</b>ジェイックは紹介部分の数値が見つかりませんでした。ネオキャリアとギブリーは未上場です。</p>
   </div>
 </div>
@@ -112,15 +114,24 @@ const D=[
  {n:"ROXX",k:"pure",seg:"全社（紹介プラットフォーム。back checkは2025/9に譲渡）",fy:"26/9期",rev:50.2,ry:11.3,p:0.64,pt:"営業利益",g:11.3,gp:"26/9期 通期（最新）",hl:true},
  {n:"MS-Japan",k:"pure",seg:"国内人材紹介",fy:"26/3期",rev:42.9,ry:1.3,p:null,pt:"未確認（全社の営業利益率は21.9%）",g:-5.4,gp:"27/3期 Q1"},
  {n:"キャリアデザインC",k:"pure",seg:"人材紹介事業",fy:"26/9期",rev:29.9,ry:-4.9,p:3.86,pt:"経常利益",g:-4.9,gp:"26/9期 通期（最新）"},
- {n:"ハウテレビジョン",k:"pure",seg:"中途サービス（Liiga等）",fy:"26/1期",rev:3.5,ry:18.3,p:null,pt:"未開示",g:null,gp:"中途の上期は未確認"}
+ {n:"ハウテレビジョン",k:"pure",seg:"中途サービス（Liiga等）",fy:"26/1期",rev:3.5,ry:18.3,p:null,pt:"未開示",g:null,gp:"中途の上期は未確認"},
+ {n:"フォースタートアップス",k:"pure",seg:"全社（スタートアップ向けハイクラス紹介が主力。VC投資も）",fy:"26/3期",rev:52.7,ry:null,p:11.2,pt:"営業利益",g:36.4,gp:"27/3期 上期（VCのイグジットを含む）"},
+ {n:"アクシスコンサルティング",k:"pure",seg:"全社（コンサル系の人材紹介＋フリーコンサル紹介）",fy:"26/6期",rev:83,ry:null,p:4.9,pt:"営業利益（今期予想から逆算した推計）",g:null,gp:"27/6期 Q1は売上額が未確認（大幅増収）",approx:true},
+ {n:"ワンキャリア",k:"mix",seg:"全社（口コミ・求人掲載＋スカウト）",fy:"25/12期",rev:75.8,ry:40.3,p:21.3,pt:"営業利益",g:null,gp:"26/12期 上期の前年比は未確認"},
+ {n:"アトラエ",k:"mix",seg:"全社（成功報酬型サイトGreen＋組織診断Wevox）",fy:"26/9期",rev:82.8,ry:8.5,p:15.3,pt:"営業利益（要確認）",g:8.5,gp:"26/9期 通期（最新）"},
+ {n:"リブセンス",k:"mix",seg:"全社（採用課金のマッハバイト＋転職ドラフト）",fy:"25/12期",rev:56.4,ry:null,p:null,pt:"営業赤字（額は未確認）",g:-33.1,gp:"26/12期 上期"},
+ {n:"ディスラプターズ",k:"mix",seg:"全社（求人アグリゲーション・送客。旧キャリアインデックス）",fy:"26/3期",rev:51.1,ry:19,p:null,pt:"未確認",g:19.2,gp:"27/3期 上期"},
+ {n:"ウォンテッドリー",k:"mix",seg:"全社（ビジネスSNS型の採用・スカウト）",fy:"26/8期",rev:44.8,ry:-8.8,p:7.35,pt:"営業利益",g:-8.8,gp:"26/8期 通期（最新）"},
+ {n:"ジンジブ",k:"mix",seg:"全社（高卒向け求人サイト＋紹介）",fy:"26/3期",rev:26.9,ry:12.0,p:1.66,pt:"営業利益",g:38,gp:"27/3期 上期（今期から連結。前年の単体と比べた参考値）"}
 ];
 D.forEach(d=>{d.m=(d.p!=null&&d.rev)?d.p/d.rev*100:null});
 const C={pure:"var(--s1)",mix:"var(--s2)"};
 const KL={pure:"紹介に近い",mix:"混在"};
 let scope="all";
-try{const s=localStorage.getItem("hrcmp-scope");if(s==="pure"||s==="all")scope=s}catch(e){}
+try{const s=localStorage.getItem("hrcmp-scope");if(s==="pure"||s==="all"||s==="mid")scope=s}catch(e){}
 const fmt=(v,dp=1)=>v.toLocaleString("ja-JP",{minimumFractionDigits:dp,maximumFractionDigits:dp});
-const sg=v=>(v>0?"+":v<0?"−":"±")+fmt(Math.abs(v),1)+"%";
+const sg=v=>v==null?"—":(v>0?"+":v<0?"−":"±")+fmt(Math.abs(v),1)+"%";
+const inScope=d=>scope==="all"||(scope==="pure"&&d.k==="pure")||(scope==="mid"&&d.rev>=25&&d.rev<=100);
 const tip=document.getElementById("tip");
 
 function tipHtml(d){
@@ -144,7 +155,7 @@ function bind(el,d){
 }
 function chart(id,key,label,diverging){
   const box=document.getElementById(id);box.innerHTML="";
-  let rows=D.filter(d=>scope==="all"||d.k==="pure");
+  let rows=D.filter(inScope);
   const has=rows.filter(d=>d[key]!=null).sort((a,b)=>b[key]-a[key]);
   const na=rows.filter(d=>d[key]==null);
   const vals=has.map(d=>d[key]);
@@ -167,7 +178,7 @@ function chart(id,key,label,diverging){
 }
 function table(){
   const t=document.getElementById("t");
-  const rows=D.filter(d=>scope==="all"||d.k==="pure");
+  const rows=D.filter(inScope);
   t.innerHTML=`<thead><tr><th>会社</th><th>区分</th><th>対象</th><th>期</th><th>売上</th><th>前年比</th><th>利益</th><th>利益の種類</th><th>利益率</th><th>直近の伸び</th><th>期間</th></tr></thead><tbody>`+
   rows.map(d=>`<tr><td${d.hl?' style="font-weight:700"':""}>${d.n}</td><td><span class="pill" style="color:${C[d.k]}">${KL[d.k]}</span></td><td>${d.seg}</td><td>${d.fy}</td>`+
    `<td class="n">${fmt(d.rev,1)}${d.approx?"*":""}</td><td class="n">${sg(d.ry)}</td><td class="n">${d.p!=null?fmt(d.p,2):"—"}</td><td>${d.pt}</td>`+
